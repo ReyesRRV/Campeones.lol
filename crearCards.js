@@ -24,11 +24,18 @@ function crearCard(e) {
 
   cardContainer.innerHTML += card
 }
-arrayIndex.forEach((e) => crearCard(e));
 
+function imprimirArray(arrayCompleta){
+  // imprimo todas las cartas en el index
+  arrayCompleta.forEach((e) => crearCard(e));
+}
+
+
+//imprimo todos los checkboxs
 checkContainer = document.querySelector(".checkContainer");
 arrayCheck = [...new Set(arrayIndex.map((e) => e.champRol))];
 console.log(arrayCheck);
+
 
   arrayCheck.forEach((e) => {
     checkContainer.innerHTML += `<div class="form-check form-switch">
@@ -37,8 +44,10 @@ console.log(arrayCheck);
     </div>`;
   });
 
-  let checkClickeado = []
-  let todosLosCheckbox = document.querySelectorAll("input[type=checkbox]")
+
+
+  let checkClickeado = [] // [guardamos la posicion clickeada. ej: TOP,MID]
+  let todosLosCheckbox = document.querySelectorAll("input[type=checkbox]") // [todos los checkbox]
   function crearCheckbox(){
     todosLosCheckbox.forEach(checkB => {
       checkB.addEventListener("click",e =>{
@@ -46,16 +55,40 @@ console.log(arrayCheck);
         console.log(estaChecked)
       if(estaChecked){
         checkClickeado.push(e.target.id)
+        filtros()
       }else{
         checkClickeado = checkClickeado.filter(uncheck => uncheck !== e.target.id)
+        filtros()
       }
       console.log(checkClickeado)
     })
   })
 }
-  
+crearCheckbox()
+
+
+// filtro 
+// SEARCH
+let textSearch = ""
+let inputSearch = document.querySelector("#search")
+inputSearch.addEventListener("keyup",(e) =>{
+  textSearch = e.target.value
+})
 
 
 
+ // filtro de checkbox y search
+function filtros(){
+  let filtroFinal =[]
+  if(textSearch == "" && checkClickeado.length>0){
+    checkClickeado.map(champ =>{ filtroFinal.push(...arrayIndex.filter(obj => obj.champRol === champ))})
+  }else{
+    filtroFinal = arrayIndex
+  }
+  imprimirArray(filtroFinal)
+}
+filtros()
+
+console.log(arrayIndex)
 
 
