@@ -24,5 +24,8 @@ function getLocal(){
     if(localStorage.length > 0){
 
         arrayLOL = JSON.parse(localStorage.getItem("card"))
+    }else{
+        arrayLOL = []
     }
 }
+
