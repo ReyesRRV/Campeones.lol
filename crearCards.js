@@ -11,7 +11,7 @@ let cardContainer = document.getElementById("cardContainer");
 
 function crearCard(e) {
   card = "";
-  cardContainer.innerHTML += `<div class="cardContainer">
+  card = `<div class="cardContainer">
 <div class="card" style="width: 18rem;">
     <img src="${e.imagen}" class="card-img-top" alt="...">
     <div class="card-body">
@@ -20,6 +20,9 @@ function crearCard(e) {
       <a href="#" class="btn btn-primary">Trolear</a>
     </div>
   </div>`;
+
+
+  cardContainer.innerHTML += card
 }
 arrayIndex.forEach((e) => crearCard(e));
 
